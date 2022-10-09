@@ -9,9 +9,11 @@ import {
 import { useContext } from "react";
 import DataProvider from "../Data";
 const Home = ({ navigation }) => {
-  const { setUserName, handleLogIn } = useContext(DataProvider);
+  const { setUserName, checkUser } = useContext(DataProvider);
+
   return (
     <View style={styles.container}>
+      <Text style={styles.text_}>Enter a User-Name</Text>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
@@ -24,7 +26,7 @@ const Home = ({ navigation }) => {
         />
         <TouchableOpacity
           onPress={() => {
-            if (handleLogIn()) navigation.navigate("Todo-list");
+            if (checkUser()) navigation.navigate("Todo-list");
           }}
           style={styles.button}
         >
@@ -59,14 +61,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     borderRadius: 60,
     elevation: 3,
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
   text: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "white",
+    color: "black",
+  },
+  text_: {
+    marginTop: 10,
+    marginBottom: 5,
+    fontSize: 15,
+    lineHeight: 15,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "black",
   },
   // button: {
   //   alignItems: "center",
