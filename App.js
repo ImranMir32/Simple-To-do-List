@@ -6,6 +6,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 import { Data } from "./Data";
+import DisplayTask from "./component/DisplayTask";
+import UpdateTask from "./component/UpdateTask";
 
 export default function App() {
   return (
@@ -19,20 +21,10 @@ export default function App() {
             // options={{ headerLeft: () => null }}
           />
           <Stack.Screen name="Craete-List" component={CraeteList} />
+          <Stack.Screen name="DisplayTask" component={DisplayTask} />
+          <Stack.Screen name="UpdateTask" component={UpdateTask} />
         </Stack.Navigator>
       </NavigationContainer>
     </Data>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     paddingTop: 35,
-//     paddingLeft: 30,
-//   },
-//   text: {
-//     fontSize: 25,
-//     fontWeight: "bold",
-//   },
-// });

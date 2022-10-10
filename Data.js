@@ -38,13 +38,19 @@ export function Data({ children }) {
     setTaskList([]);
   };
 
-  const isChecked = (index) => {
-    const newArry = taskList.map((task) => {
-      if (task.id === index) {
-        task.status = task.status === "false" ? "true" : "false";
+  const isChecked = (id) => {
+    const newTasks = taskList.map((task) => {
+      // Alert.alert("ok");
+      if (task?.id === id) {
+        // Alert.alert("get");
+        task.status === "false"
+          ? (task.status = "true")
+          : (task.status = "false");
       }
+      return task;
     });
-    setTaskList(newArry);
+
+    setTaskList(newTasks);
   };
 
   const handleAddTask = () => {
@@ -58,6 +64,20 @@ export function Data({ children }) {
     setStatus();
     Alert.alert("added");
     return;
+  };
+
+  const updateTheTask = (id) => {
+    Keyboard.dismiss();
+    const newTasks = taskList.map((task) => {
+      if (task?.id === id) {
+        task.title = title;
+        task.description = description;
+      }
+      return task;
+    });
+
+    setTaskList(newTasks);
+    return true;
   };
   return (
     <DataProvider.Provider
@@ -75,6 +95,7 @@ export function Data({ children }) {
         handleAddTask,
         isChecked,
         clearData,
+        updateTheTask,
       }}
     >
       {children}

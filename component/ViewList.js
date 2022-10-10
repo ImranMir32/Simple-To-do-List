@@ -4,14 +4,11 @@ import {
   View,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView,
-  TextInput,
   ScrollView,
   Alert,
 } from "react-native";
 import DataProvider from "../Data";
 import { useContext } from "react";
-import Var from "./Var";
 
 const ViewList = ({ navigation }) => {
   const {
@@ -39,19 +36,31 @@ const ViewList = ({ navigation }) => {
           {taskList.map((task, index) => {
             return (
               <View style={styles.item} key={index}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("DisplayTask", { id: index });
+                  }}
+                >
                   <View style={styles.itemLeft}>
                     <View style={styles.square}>
-                      <Text style={styles.square}>{index + 1}.</Text>
+                      <Text style={styles.square}>{task?.id + 1}.</Text>
                     </View>
-                    <Text style={styles.itemText}>{task.title}</Text>
+                    <Text
+                      style={
+                        task?.status === "true"
+                          ? [styles.isitem]
+                          : [styles.item]
+                      }
+                    >
+                      {task?.title}
+                    </Text>
                   </View>
                 </TouchableOpacity>
 
                 <View style={styles.wrap}>
                   <TouchableOpacity
                     onPress={() => {
-                      Alert.alert("u touch edit");
+                      navigation.navigate("UpdateTask", { id: index });
                     }}
                   >
                     <Image
@@ -60,13 +69,14 @@ const ViewList = ({ navigation }) => {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={(index) => {
-                      isChecked(index);
+                    onPress={() => {
+                      Alert.alert("pressed");
+                      isChecked(task?.id);
                     }}
                   >
                     <View
                       style={
-                        taskList.status === "true"
+                        task?.status === "true"
                           ? [styles.iscircular]
                           : [styles.circular]
                       }
@@ -107,13 +117,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   item: {
+    fontSize: 15,
+    fontWeight: "bold",
     backgroundColor: "#fff",
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 20,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    // margin: 20,
+  },
+  isitem: {
+    fontSize: 15,
+    fontWeight: "bold",
+    textDecorationLine: "line-through",
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    // margin: 20,
   },
   itemLeft: {
     flexDirection: "row",

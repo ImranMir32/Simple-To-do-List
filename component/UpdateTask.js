@@ -3,63 +3,66 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 import DataProvider from "../Data";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Var from "./Var";
 
-const CraeteList = ({ navigation }) => {
+export default UpdateTask = ({ navigation, route }) => {
   const {
+    taskList,
     title,
     description,
     setTitle,
     setDescription,
     checkTitle,
-    handleAddTask,
+    updateTheTask,
   } = useContext(DataProvider);
+
+  const { id } = route.params;
+  useEffect(() => {
+    setTitle(taskList[id].title);
+    setDescription(taskList[id].description);
+  }, []);
   return (
     <View>
+      {/* exit */}
       <Var navigation={navigation} />
       <View style={styles.container}>
-        <Text style={styles.text}>Create new Todo</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.writeTaskWrapper}
         >
           <Text style={styles.text_}>Title:</Text>
           <TextInput
             style={styles.input}
-            placeholder={"Title Of ToDo max(20)"}
             value={title}
             onChangeText={(title) => setTitle(title)}
             maxLength={20}
-          />
+          ></TextInput>
           <Text style={styles.text_}>Description:</Text>
           <TextInput
             style={styles.input}
-            placeholder={"Description Of ToDo"}
             value={description}
             onChangeText={(description) => setDescription(description)}
-          />
+          ></TextInput>
           <TouchableOpacity
             onPress={() => {
               if (checkTitle()) {
-                handleAddTask(), navigation.goBack();
+                updateTheTask(id), navigation.goBack();
               }
             }}
             style={styles.button}
           >
-            <Text style={styles.text}>Create</Text>
+            <Text style={styles.text}>Save</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </View>
     </View>
   );
 };
-export default CraeteList;
+
 const styles = StyleSheet.create({
   container: {
     marginTop: 100,
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   button: {
-    marginTop: 15,
+    marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 15,
