@@ -11,18 +11,7 @@ import DataProvider from "../Data";
 import { useContext } from "react";
 
 const ViewList = ({ navigation }) => {
-  const {
-    userName,
-    title,
-    description,
-    setTitle,
-    setDescription,
-    getTitle,
-    getDescription,
-    checkTitle,
-    taskList,
-    isChecked,
-  } = useContext(DataProvider);
+  const { taskList, isChecked } = useContext(DataProvider);
   return (
     <View>
       <ScrollView
@@ -70,7 +59,6 @@ const ViewList = ({ navigation }) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      Alert.alert("pressed");
                       isChecked(task?.id);
                     }}
                   >
@@ -186,6 +174,6 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 2,
     borderRadius: 10,
-    backgroundColor: "blue",
+    backgroundColor: "black",
   },
 });

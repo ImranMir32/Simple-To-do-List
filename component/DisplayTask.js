@@ -13,11 +13,11 @@ export default DisplayTask = ({ navigation, route }) => {
       <View style={styles.show}>
         <View style={styles.need}>
           <Text style={styles.text}>Title:</Text>
-          <Text style={styles.text_}>{taskList[id].title}</Text>
+          <Text style={styles.text_}>{taskList[id]?.title}</Text>
         </View>
         <View style={styles.need}>
           <Text style={styles.text}>Description:</Text>
-          <Text style={styles.text_}>{taskList[id].description}</Text>
+          <Text style={styles.text_}>{taskList[id]?.description}</Text>
         </View>
       </View>
     </View>

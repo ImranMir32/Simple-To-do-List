@@ -27,22 +27,18 @@ export function Data({ children }) {
       return true;
     }
   };
-  // const getTitle = (id) => {
-  //   return taskList[id].title;
-  // };
 
   const clearData = () => {
     setUserName("");
     setTitle("");
     setDescription("");
     setTaskList([]);
+    // userName = "";
   };
 
   const isChecked = (id) => {
     const newTasks = taskList.map((task) => {
-      // Alert.alert("ok");
       if (task?.id === id) {
-        // Alert.alert("get");
         task.status === "false"
           ? (task.status = "true")
           : (task.status = "false");
@@ -62,7 +58,6 @@ export function Data({ children }) {
     setTitle("");
     setDescription("");
     setStatus();
-    Alert.alert("added");
     return;
   };
 
@@ -77,6 +72,8 @@ export function Data({ children }) {
     });
 
     setTaskList(newTasks);
+    setTitle("");
+    setDescription("");
     return true;
   };
   return (

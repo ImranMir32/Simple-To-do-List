@@ -1,15 +1,7 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import DataProvider from "../Data";
 import { useContext } from "react";
 
-//component
 const Var = ({ navigation }) => {
   const { userName, clearData } = useContext(DataProvider);
   return (

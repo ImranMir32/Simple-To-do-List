@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from "react-native";
 import Home from "./component/Home";
 import Todo from "./component/Todo";
 import CraeteList from "./component/CreateList";
@@ -18,7 +17,7 @@ export default function App() {
           <Stack.Screen
             name="Todo-list"
             component={Todo}
-            // options={{ headerLeft: () => null }}
+            options={{ headerLeft: () => null }}
           />
           <Stack.Screen name="Craete-List" component={CraeteList} />
           <Stack.Screen name="DisplayTask" component={DisplayTask} />

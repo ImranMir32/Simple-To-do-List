@@ -16,7 +16,6 @@ const Home = ({ navigation }) => {
       <Text style={styles.text_}>Enter a User-Name</Text>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
       >
         <TextInput
           style={styles.input}
@@ -79,20 +78,4 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "black",
   },
-  // button: {
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   paddingVertical: 12,
-  //   paddingHorizontal: 32,
-  //   borderRadius: 4,
-  //   elevation: 3,
-  //   backgroundColor: "black",
-  // },
-  // text: {
-  //   fontSize: 16,
-  //   lineHeight: 21,
-  //   fontWeight: "bold",
-  //   letterSpacing: 0.25,
-  //   color: "white",
-  // },
 });

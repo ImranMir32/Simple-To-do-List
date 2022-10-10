@@ -3,7 +3,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
   KeyboardAvoidingView,
   TextInput,
 } from "react-native";
@@ -27,7 +26,6 @@ const CraeteList = ({ navigation }) => {
         <Text style={styles.text}>Create new Todo</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.writeTaskWrapper}
         >
           <Text style={styles.text_}>Title:</Text>
           <TextInput

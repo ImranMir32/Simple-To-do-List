@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import DataProvider from "../Data";
 import { useContext } from "react";
 import Var from "./Var";
 import ViewList from "./ViewList";
-import CraeteList from "./CreateList";
 
 export default Todo = ({ navigation }) => {
   const { userName } = useContext(DataProvider);
@@ -18,7 +17,6 @@ export default Todo = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               navigation.push("Craete-List");
-              // navigation.pop();
             }}
             style={styles.button}
           >
