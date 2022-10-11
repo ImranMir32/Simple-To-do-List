@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   todo: {
-    marginLeft: 7,
+    marginLeft: 15,
     fontWeight: "bold",
     fontSize: 25,
   },
   bar: {
     flexDirection: "row",
     position: "absolute",
-    right: 7,
+    right: 15,
   },
   userName: {
     fontWeight: "bold",

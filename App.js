@@ -7,6 +7,7 @@ const Stack = createStackNavigator();
 import { Data } from "./Data";
 import DisplayTask from "./component/DisplayTask";
 import UpdateTask from "./component/UpdateTask";
+import Confirm from "./component/Confirm";
 
 export default function App() {
   return (
@@ -22,6 +23,11 @@ export default function App() {
           <Stack.Screen name="Craete-List" component={CraeteList} />
           <Stack.Screen name="DisplayTask" component={DisplayTask} />
           <Stack.Screen name="UpdateTask" component={UpdateTask} />
+          <Stack.Screen
+            name="Confirm"
+            component={Confirm}
+            options={{ headerLeft: () => null }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Data>

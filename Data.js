@@ -8,11 +8,13 @@ export function Data({ children }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("false");
+  const [shouldShowUser, setShouldShowUser] = useState(false);
+  const [shouldShowTitle, setShouldShowTitle] = useState(false);
 
   const checkUser = () => {
     Keyboard.dismiss();
     if (userName === "") {
-      Alert.alert("Invalid Token");
+      // Alert.alert("Invalid Token");
       return false;
     } else {
       return true;
@@ -21,7 +23,15 @@ export function Data({ children }) {
   const checkTitle = () => {
     Keyboard.dismiss();
     if (title === "") {
-      Alert.alert("Invalid Token");
+      // Alert.alert("Invalid Token");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const checkDescription = (id) => {
+    if (taskList[id]?.description === "") {
       return false;
     } else {
       return true;
@@ -33,6 +43,8 @@ export function Data({ children }) {
     setTitle("");
     setDescription("");
     setTaskList([]);
+    setShouldShowUser(false);
+    setShouldShowTitle(false);
     // userName = "";
   };
 
@@ -58,6 +70,7 @@ export function Data({ children }) {
     setTitle("");
     setDescription("");
     setStatus();
+    setShouldShowTitle(false);
     return;
   };
 
@@ -74,8 +87,16 @@ export function Data({ children }) {
     setTaskList(newTasks);
     setTitle("");
     setDescription("");
+    setShouldShowTitle(false);
     return true;
   };
+
+  const completeTask = (index) => {
+    let itemsCopy = [...taskList];
+    itemsCopy.splice(index, 1);
+    setTaskList(itemsCopy);
+  };
+
   return (
     <DataProvider.Provider
       value={{
@@ -93,6 +114,12 @@ export function Data({ children }) {
         isChecked,
         clearData,
         updateTheTask,
+        shouldShowUser,
+        setShouldShowUser,
+        shouldShowTitle,
+        setShouldShowTitle,
+        checkDescription,
+        completeTask,
       }}
     >
       {children}

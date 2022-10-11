@@ -9,8 +9,13 @@ import {
 import { useContext } from "react";
 import DataProvider from "../Data";
 const Home = ({ navigation }) => {
-  const { setUserName, checkUser } = useContext(DataProvider);
-
+  const {
+    setUserName,
+    checkUser,
+    shouldShowUser,
+    setShouldShowUser,
+    userName,
+  } = useContext(DataProvider);
   return (
     <View style={styles.container}>
       <Text style={styles.text_}>Enter a User-Name</Text>
@@ -20,11 +25,18 @@ const Home = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder={"Enter your userName max(5)"}
+          value={userName}
           onChangeText={(userName) => setUserName(userName)}
           maxLength={5}
         />
+        <View>
+          {shouldShowUser ? (
+            <Text style={styles.req}>*username is required </Text>
+          ) : null}
+        </View>
         <TouchableOpacity
           onPress={() => {
+            if (!checkUser()) setShouldShowUser(true);
             if (checkUser()) navigation.navigate("Todo-list");
           }}
           style={styles.button}
@@ -39,9 +51,13 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
+    // backgroundColor: "#FEF0FB",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  req: {
+    color: "red",
   },
   input: {
     paddingVertical: 15,
@@ -59,7 +75,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 2,
     borderRadius: 60,
-    elevation: 3,
+    elevation: 5,
     backgroundColor: "white",
   },
   text: {

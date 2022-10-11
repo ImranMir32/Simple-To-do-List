@@ -31,9 +31,6 @@ const ViewList = ({ navigation }) => {
                   }}
                 >
                   <View style={styles.itemLeft}>
-                    <View style={styles.square}>
-                      <Text style={styles.square}>{task?.id + 1}.</Text>
-                    </View>
                     <Text
                       style={
                         task?.status === "true"
@@ -52,10 +49,12 @@ const ViewList = ({ navigation }) => {
                       navigation.navigate("UpdateTask", { id: index });
                     }}
                   >
-                    <Image
-                      style={styles.tinyLogo}
-                      source={require("../Icons/edit.png")}
-                    />
+                    {task?.status === "false" ? (
+                      <Image
+                        style={styles.tinyLogo}
+                        source={require("../Icons/edit.png")}
+                      />
+                    ) : null}
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -137,11 +136,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-  },
-  square: {
-    // margin: 12,
-    fontSize: 15,
-    fontWeight: "bold",
   },
   itemText: {
     margin: 12,

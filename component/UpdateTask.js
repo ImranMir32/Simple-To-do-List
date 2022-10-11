@@ -19,6 +19,8 @@ export default UpdateTask = ({ navigation, route }) => {
     setDescription,
     checkTitle,
     updateTheTask,
+    shouldShowTitle,
+    setShouldShowTitle,
   } = useContext(DataProvider);
 
   const { id } = route.params;
@@ -41,6 +43,9 @@ export default UpdateTask = ({ navigation, route }) => {
             onChangeText={(title) => setTitle(title)}
             maxLength={20}
           ></TextInput>
+          {shouldShowTitle ? (
+            <Text style={styles.req}>*title is required </Text>
+          ) : null}
           <Text style={styles.text_}>Description:</Text>
           <TextInput
             style={styles.input}
@@ -49,6 +54,7 @@ export default UpdateTask = ({ navigation, route }) => {
           ></TextInput>
           <TouchableOpacity
             onPress={() => {
+              if (!checkTitle()) setShouldShowTitle(true);
               if (checkTitle()) {
                 updateTheTask(id), navigation.goBack();
               }
@@ -77,6 +83,9 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderColor: "#c0c0c0",
     borderWidth: 1,
+  },
+  req: {
+    color: "red",
   },
   button: {
     marginTop: 10,

@@ -33,27 +33,31 @@ export default Todo = ({ navigation }) => {
 const styles = StyleSheet.create({
   createNew: {
     flexDirection: "row",
+    marginBottom: 15,
   },
   todo: {
-    margin: 7,
-    marginTop: 15,
+    margin: 20,
+    marginLeft: 30,
+    marginTop: 30,
     fontWeight: "bold",
     fontSize: 22,
   },
   bar: {
     flexDirection: "row",
     position: "absolute",
-    right: 7,
+    right: 15,
   },
 
   button: {
-    marginTop: 10,
+    marginTop: 15,
+    marginRight: 17,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 15,
+    height: 55,
     paddingHorizontal: 5,
     borderRadius: 60,
-    elevation: 3,
+    elevation: 5,
     backgroundColor: "white",
   },
   text: {

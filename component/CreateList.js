@@ -18,6 +18,8 @@ const CraeteList = ({ navigation }) => {
     setDescription,
     checkTitle,
     handleAddTask,
+    shouldShowTitle,
+    setShouldShowTitle,
   } = useContext(DataProvider);
   return (
     <View>
@@ -35,6 +37,11 @@ const CraeteList = ({ navigation }) => {
             onChangeText={(title) => setTitle(title)}
             maxLength={20}
           />
+          <View>
+            {shouldShowTitle ? (
+              <Text style={styles.req}>*title is required </Text>
+            ) : null}
+          </View>
           <Text style={styles.text_}>Description:</Text>
           <TextInput
             style={styles.input}
@@ -44,6 +51,7 @@ const CraeteList = ({ navigation }) => {
           />
           <TouchableOpacity
             onPress={() => {
+              if (!checkTitle()) setShouldShowTitle(true);
               if (checkTitle()) {
                 handleAddTask(), navigation.goBack();
               }
@@ -63,6 +71,9 @@ const styles = StyleSheet.create({
     marginTop: 100,
     alignItems: "center",
     justifyContent: "center",
+  },
+  req: {
+    color: "red",
   },
   input: {
     paddingVertical: 15,
