@@ -49,18 +49,18 @@ const CraeteList = ({ navigation }) => {
             value={description}
             onChangeText={(description) => setDescription(description)}
           />
-          <TouchableOpacity
-            onPress={() => {
-              if (!checkTitle()) setShouldShowTitle(true);
-              if (checkTitle()) {
-                handleAddTask(), navigation.goBack();
-              }
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.text}>Create</Text>
-          </TouchableOpacity>
         </KeyboardAvoidingView>
+        <TouchableOpacity
+          onPress={() => {
+            if (!checkTitle()) setShouldShowTitle(true);
+            if (checkTitle()) {
+              handleAddTask(), navigation.goBack();
+            }
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>Create</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -68,7 +68,7 @@ const CraeteList = ({ navigation }) => {
 export default CraeteList;
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
+    marginTop: 65,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -85,12 +85,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   button: {
+    width: 100,
+    height: 50,
     marginTop: 15,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 15,
     paddingHorizontal: 5,
-    borderRadius: 60,
+    borderRadius: 25,
     elevation: 3,
     backgroundColor: "white",
   },

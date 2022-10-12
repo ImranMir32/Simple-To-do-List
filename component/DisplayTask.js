@@ -33,7 +33,7 @@ export default DisplayTask = ({ navigation, route }) => {
         }}
         style={styles.button}
       >
-        <Text style={styles.text__}>Delete</Text>
+        <Text style={styles.buttonText}>Delete</Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,15 +50,16 @@ const styles = StyleSheet.create({
     color: "black",
   },
   button: {
-    marginTop: 10,
     marginLeft: 125,
     width: 100,
-    height: 70,
+    height: 50,
     paddingVertical: 15,
     paddingHorizontal: 5,
-    borderRadius: 40,
+    borderRadius: 25,
     elevation: 3,
     backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   text__: {
     paddingLeft: 7,
@@ -70,6 +71,13 @@ const styles = StyleSheet.create({
   text_: {
     marginTop: 10,
     marginBottom: 5,
+    fontSize: 15,
+    lineHeight: 15,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "black",
+  },
+  buttonText: {
     fontSize: 15,
     lineHeight: 15,
     fontWeight: "bold",

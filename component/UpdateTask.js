@@ -52,18 +52,18 @@ export default UpdateTask = ({ navigation, route }) => {
             value={description}
             onChangeText={(description) => setDescription(description)}
           ></TextInput>
-          <TouchableOpacity
-            onPress={() => {
-              if (!checkTitle()) setShouldShowTitle(true);
-              if (checkTitle()) {
-                updateTheTask(id), navigation.goBack();
-              }
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.text}>Save</Text>
-          </TouchableOpacity>
         </KeyboardAvoidingView>
+        <TouchableOpacity
+          onPress={() => {
+            if (!checkTitle()) setShouldShowTitle(true);
+            if (checkTitle()) {
+              updateTheTask(id), navigation.goBack();
+            }
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>Save</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -71,7 +71,7 @@ export default UpdateTask = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
+    marginTop: 65,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -88,12 +88,14 @@ const styles = StyleSheet.create({
     color: "red",
   },
   button: {
+    height: 50,
+    width: 100,
     marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 15,
     paddingHorizontal: 5,
-    borderRadius: 60,
+    borderRadius: 25,
     elevation: 3,
     backgroundColor: "white",
   },

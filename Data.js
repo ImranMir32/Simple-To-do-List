@@ -97,6 +97,12 @@ export function Data({ children }) {
     setTaskList(itemsCopy);
   };
 
+  const clear = () => {
+    setTitle("");
+    setDescription("");
+    setShouldShowTitle(false);
+  };
+
   return (
     <DataProvider.Provider
       value={{
@@ -120,6 +126,7 @@ export function Data({ children }) {
         setShouldShowTitle,
         checkDescription,
         completeTask,
+        clear,
       }}
     >
       {children}

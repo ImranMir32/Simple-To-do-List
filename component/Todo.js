@@ -5,7 +5,7 @@ import Var from "./Var";
 import ViewList from "./ViewList";
 
 export default Todo = ({ navigation }) => {
-  const { userName } = useContext(DataProvider);
+  const { userName, clear } = useContext(DataProvider);
   return (
     <View style={styles.containers}>
       {/* exit */}
@@ -17,6 +17,7 @@ export default Todo = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               navigation.push("Craete-List");
+              clear();
             }}
             style={styles.button}
           >
@@ -31,6 +32,11 @@ export default Todo = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  containers: {
+    height: "100%",
+    width: "100%",
+    // backgroundColor: "#AADEFF",
+  },
   createNew: {
     flexDirection: "row",
     marginBottom: 15,
@@ -49,14 +55,16 @@ const styles = StyleSheet.create({
   },
 
   button: {
+    height: 50,
+    width: 100,
     marginTop: 15,
-    marginRight: 17,
+    marginRight: 15,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 15,
     height: 55,
     paddingHorizontal: 5,
-    borderRadius: 60,
+    borderRadius: 25,
     elevation: 5,
     backgroundColor: "white",
   },

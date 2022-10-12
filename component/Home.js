@@ -34,16 +34,16 @@ const Home = ({ navigation }) => {
             <Text style={styles.req}>*username is required </Text>
           ) : null}
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            if (!checkUser()) setShouldShowUser(true);
-            if (checkUser()) navigation.navigate("Todo-list");
-          }}
-          style={styles.button}
-        >
-          <Text style={styles.text}>LogIn</Text>
-        </TouchableOpacity>
       </KeyboardAvoidingView>
+      <TouchableOpacity
+        onPress={() => {
+          if (!checkUser()) setShouldShowUser(true);
+          if (checkUser()) navigation.navigate("Todo-list");
+        }}
+        style={styles.button}
+      >
+        <Text style={styles.text}>LogIn</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -51,7 +51,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: "#FEF0FB",
+    // backgroundColor: "#AADEFF",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -69,12 +69,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   button: {
+    height: 50,
+    width: 100,
     margin: 20,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 2,
-    borderRadius: 60,
+    borderRadius: 25,
     elevation: 5,
     backgroundColor: "white",
   },
