@@ -7,7 +7,7 @@ import {
   Text,
 } from "react-native";
 import { useContext } from "react";
-import DataProvider from "../Data";
+import DataProvider from "../DataProvider";
 const Home = ({ navigation }) => {
   const {
     setUserName,

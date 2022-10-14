@@ -4,7 +4,7 @@ import CraeteList from "./component/CreateList";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
-import { Data } from "./Data";
+import { Data } from "./DataProvider";
 import DisplayTask from "./component/DisplayTask";
 import UpdateTask from "./component/UpdateTask";
 import Confirm from "./component/Confirm";

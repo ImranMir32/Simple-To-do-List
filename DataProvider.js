@@ -1,4 +1,4 @@
-import { Alert, Keyboard } from "react-native";
+import { Keyboard } from "react-native";
 import { createContext, useState } from "react";
 const DataProvider = createContext();
 
@@ -10,11 +10,11 @@ export function Data({ children }) {
   const [status, setStatus] = useState("false");
   const [shouldShowUser, setShouldShowUser] = useState(false);
   const [shouldShowTitle, setShouldShowTitle] = useState(false);
+  const [ID, setID] = useState(0);
 
   const checkUser = () => {
     Keyboard.dismiss();
     if (userName === "") {
-      // Alert.alert("Invalid Token");
       return false;
     } else {
       return true;
@@ -23,7 +23,6 @@ export function Data({ children }) {
   const checkTitle = () => {
     Keyboard.dismiss();
     if (title === "") {
-      // Alert.alert("Invalid Token");
       return false;
     } else {
       return true;
@@ -45,7 +44,6 @@ export function Data({ children }) {
     setTaskList([]);
     setShouldShowUser(false);
     setShouldShowTitle(false);
-    // userName = "";
   };
 
   const isChecked = (id) => {
@@ -63,14 +61,12 @@ export function Data({ children }) {
 
   const handleAddTask = () => {
     Keyboard.dismiss();
-    setTaskList([
-      ...taskList,
-      { title, description, status: "false", id: taskList.length },
-    ]);
+    setTaskList([...taskList, { title, description, status: "false", id: ID }]);
     setTitle("");
     setDescription("");
     setStatus();
     setShouldShowTitle(false);
+    setID(ID + 1);
     return;
   };
 
@@ -91,7 +87,7 @@ export function Data({ children }) {
     return true;
   };
 
-  const completeTask = (index) => {
+  const deleteTask = (index) => {
     let itemsCopy = [...taskList];
     itemsCopy.splice(index, 1);
     setTaskList(itemsCopy);
@@ -125,7 +121,7 @@ export function Data({ children }) {
         shouldShowTitle,
         setShouldShowTitle,
         checkDescription,
-        completeTask,
+        deleteTask,
         clear,
       }}
     >

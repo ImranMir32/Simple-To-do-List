@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import DataProvider from "../Data";
+import DataProvider from "../DataProvider";
 import { useContext } from "react";
 import Var from "./Var";
 import ViewList from "./ViewList";
 
 export default Todo = ({ navigation }) => {
-  const { userName, clear } = useContext(DataProvider);
+  const { clear } = useContext(DataProvider);
   return (
     <View style={styles.containers}>
       {/* exit */}

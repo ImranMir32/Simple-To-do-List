@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import DataProvider from "../Data";
+import DataProvider from "../DataProvider";
 import { useContext } from "react";
 import Var from "./Var";
 import Confirm from "./Confirm";
 
 export default DisplayTask = ({ navigation, route }) => {
-  const { taskList, checkDescription, completeTask, stay } =
-    useContext(DataProvider);
+  const { taskList, checkDescription } = useContext(DataProvider);
   const { id } = route.params;
   return (
     <View style={styles.containers}>

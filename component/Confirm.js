@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import DataProvider from "../Data";
+import DataProvider from "../DataProvider";
 import { useContext } from "react";
 import Var from "./Var";
 
 export default Confirm = ({ navigation, route }) => {
-  const { taskList, checkDescription, completeTask } = useContext(DataProvider);
+  const { deleteTask } = useContext(DataProvider);
   const { id } = route.params;
   return (
     <View style={styles.containers}>
@@ -19,7 +19,7 @@ export default Confirm = ({ navigation, route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            completeTask(id);
+            deleteTask(id);
             navigation.navigate("Todo-list");
           }}
         >

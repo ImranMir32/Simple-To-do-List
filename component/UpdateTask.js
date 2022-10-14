@@ -6,7 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import DataProvider from "../Data";
+import DataProvider from "../DataProvider";
 import { useContext, useEffect } from "react";
 import Var from "./Var";
 

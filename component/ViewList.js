@@ -5,9 +5,8 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  Alert,
 } from "react-native";
-import DataProvider from "../Data";
+import DataProvider from "../DataProvider";
 import { useContext } from "react";
 
 const ViewList = ({ navigation }) => {
