@@ -5,77 +5,87 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import DataProvider from "../DataProvider";
 import { useContext } from "react";
 
 const ViewList = ({ navigation }) => {
-  const { taskList, isChecked } = useContext(DataProvider);
+  const { taskList, isChecked, isLoading } = useContext(DataProvider);
+  console.log(isLoading);
   return (
-    <View>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-        }}
-        keyboardShouldPersistTaps="handled"
-      >
-        <View style={styles.items}>
-          {/* loooop */}
-          {taskList.map((task, index) => {
-            return (
-              <View style={styles.item} key={index}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("DisplayTask", { id: index });
-                  }}
-                >
-                  <View style={styles.itemLeft}>
-                    <Text
-                      style={
-                        task?.status === true ? [styles.isitem] : [styles.item]
-                      }
+    <>
+      {isLoading ? (
+        <ActivityIndicator size={50} />
+      ) : (
+        <View>
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+            }}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.items}>
+              {/* loooop */}
+              {taskList.map((task, index) => {
+                return (
+                  <View style={styles.item} key={index}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("DisplayTask", { id: index });
+                      }}
                     >
-                      {task?.title}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <View>
-                  <Text>{task.date}</Text>
-                </View>
+                      <View style={styles.itemLeft}>
+                        <Text
+                          style={
+                            task?.status === true
+                              ? [styles.isitem]
+                              : [styles.item]
+                          }
+                        >
+                          {task?.title}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                    <View>
+                      <Text>{task.date}</Text>
+                    </View>
 
-                <View style={styles.wrap}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("UpdateTask", { id: index });
-                    }}
-                  >
-                    {task?.status === false ? (
-                      <Image
-                        style={styles.tinyLogo}
-                        source={require("../Icons/edit.png")}
-                      />
-                    ) : null}
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      isChecked(task?.id, task.status);
-                    }}
-                  >
-                    <View
-                      style={
-                        task?.status === true
-                          ? [styles.iscircular]
-                          : [styles.circular]
-                      }
-                    ></View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            );
-          })}
+                    <View style={styles.wrap}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("UpdateTask", { id: index });
+                        }}
+                      >
+                        {task?.status === false ? (
+                          <Image
+                            style={styles.tinyLogo}
+                            source={require("../Icons/edit.png")}
+                          />
+                        ) : null}
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          isChecked(task?.id, task.status);
+                        }}
+                      >
+                        <View
+                          style={
+                            task?.status === true
+                              ? [styles.iscircular]
+                              : [styles.circular]
+                          }
+                        ></View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          </ScrollView>
         </View>
-      </ScrollView>
-    </View>
+      )}
+    </>
   );
 };
 export default ViewList;

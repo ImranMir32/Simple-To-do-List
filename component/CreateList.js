@@ -20,6 +20,7 @@ const CraeteList = ({ navigation }) => {
     shouldShowTitle,
     setShouldShowTitle,
     uploadTask,
+    setIsLoading,
   } = useContext(DataProvider);
   return (
     <View>
@@ -54,6 +55,7 @@ const CraeteList = ({ navigation }) => {
           onPress={() => {
             if (!checkTitle()) setShouldShowTitle(true);
             if (checkTitle()) {
+              setIsLoading(true);
               uploadTask(title, description);
               navigation.goBack();
             }

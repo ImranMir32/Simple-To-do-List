@@ -13,6 +13,7 @@ export function Data({ children }) {
   const [shouldShowUser, setShouldShowUser] = useState(false);
   const [shouldShowTitle, setShouldShowTitle] = useState(false);
   const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const logIn = async () => {
     Keyboard.dismiss();
@@ -62,7 +63,7 @@ export function Data({ children }) {
 
       console.log(response.data);
 
-      setTaskList([...taskList, createTodo(response.data)]);
+      fetchAllTodo();
       setTitle("");
       setDescription("");
       setStatus();
@@ -83,7 +84,7 @@ export function Data({ children }) {
           Userid: user.id,
         },
       });
-
+      setTimeout(() => setIsLoading(false), 1000);
       const currentTaskList = response.data;
       console.log(response.data);
 
@@ -230,6 +231,8 @@ export function Data({ children }) {
         logIn,
         uploadTask,
         fetchAllTodo,
+        setIsLoading,
+        isLoading,
       }}
     >
       {children}

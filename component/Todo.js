@@ -10,6 +10,7 @@ export default Todo = ({ navigation }) => {
   useEffect(() => {
     fetchAllTodo();
   }, []);
+
   return (
     <View style={styles.containers}>
       {/* exit */}

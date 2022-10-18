@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
     setShouldShowUser,
     userName,
     logIn,
-    fetchAllTodo,
+    setIsLoading,
   } = useContext(DataProvider);
   return (
     <View style={styles.container}>
@@ -42,6 +42,7 @@ const Home = ({ navigation }) => {
           if (!checkUser()) setShouldShowUser(true);
           if (checkUser()) {
             await logIn();
+            setIsLoading(true);
             navigation.navigate("Todo-list");
           }
         }}
