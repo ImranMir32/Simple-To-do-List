@@ -32,15 +32,16 @@ const ViewList = ({ navigation }) => {
                   <View style={styles.itemLeft}>
                     <Text
                       style={
-                        task?.status === "true"
-                          ? [styles.isitem]
-                          : [styles.item]
+                        task?.status === true ? [styles.isitem] : [styles.item]
                       }
                     >
                       {task?.title}
                     </Text>
                   </View>
                 </TouchableOpacity>
+                <View>
+                  <Text>{task.date}</Text>
+                </View>
 
                 <View style={styles.wrap}>
                   <TouchableOpacity
@@ -48,7 +49,7 @@ const ViewList = ({ navigation }) => {
                       navigation.navigate("UpdateTask", { id: index });
                     }}
                   >
-                    {task?.status === "false" ? (
+                    {task?.status === false ? (
                       <Image
                         style={styles.tinyLogo}
                         source={require("../Icons/edit.png")}
@@ -57,12 +58,12 @@ const ViewList = ({ navigation }) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      isChecked(task?.id);
+                      isChecked(task?.id, task.status);
                     }}
                   >
                     <View
                       style={
-                        task?.status === "true"
+                        task?.status === true
                           ? [styles.iscircular]
                           : [styles.circular]
                       }

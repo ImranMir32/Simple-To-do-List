@@ -15,6 +15,8 @@ const Home = ({ navigation }) => {
     shouldShowUser,
     setShouldShowUser,
     userName,
+    logIn,
+    fetchAllTodo,
   } = useContext(DataProvider);
   return (
     <View style={styles.container}>
@@ -36,9 +38,12 @@ const Home = ({ navigation }) => {
         </View>
       </KeyboardAvoidingView>
       <TouchableOpacity
-        onPress={() => {
+        onPress={async () => {
           if (!checkUser()) setShouldShowUser(true);
-          if (checkUser()) navigation.navigate("Todo-list");
+          if (checkUser()) {
+            await logIn();
+            navigation.navigate("Todo-list");
+          }
         }}
         style={styles.button}
       >

@@ -17,9 +17,9 @@ const CraeteList = ({ navigation }) => {
     setTitle,
     setDescription,
     checkTitle,
-    handleAddTask,
     shouldShowTitle,
     setShouldShowTitle,
+    uploadTask,
   } = useContext(DataProvider);
   return (
     <View>
@@ -54,7 +54,8 @@ const CraeteList = ({ navigation }) => {
           onPress={() => {
             if (!checkTitle()) setShouldShowTitle(true);
             if (checkTitle()) {
-              handleAddTask(), navigation.goBack();
+              uploadTask(title, description);
+              navigation.goBack();
             }
           }}
           style={styles.button}
