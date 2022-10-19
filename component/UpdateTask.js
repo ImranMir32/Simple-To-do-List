@@ -21,6 +21,7 @@ export default UpdateTask = ({ navigation, route }) => {
     updateTheTask,
     shouldShowTitle,
     setShouldShowTitle,
+    setIsLoading,
   } = useContext(DataProvider);
 
   const { id } = route.params;
@@ -54,10 +55,10 @@ export default UpdateTask = ({ navigation, route }) => {
           ></TextInput>
         </KeyboardAvoidingView>
         <TouchableOpacity
-          onPress={async () => {
+          onPress={() => {
             if (!checkTitle()) setShouldShowTitle(true);
             if (checkTitle()) {
-              await updateTheTask(id, title, description);
+              updateTheTask(id, title, description);
               setIsLoading(true);
               navigation.goBack();
             }
