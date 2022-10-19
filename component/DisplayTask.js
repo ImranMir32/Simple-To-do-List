@@ -39,6 +39,7 @@ export default DisplayTask = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  containers: { height: "100%", width: "100%", backgroundColor: "#AADEFF" },
   show: {
     margin: 50,
   },

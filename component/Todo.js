@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   containers: {
     height: "100%",
     width: "100%",
-    // backgroundColor: "#AADEFF",
+    backgroundColor: "#AADEFF",
   },
   createNew: {
     flexDirection: "row",

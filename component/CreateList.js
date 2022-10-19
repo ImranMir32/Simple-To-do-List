@@ -23,7 +23,7 @@ const CraeteList = ({ navigation }) => {
     setIsLoading,
   } = useContext(DataProvider);
   return (
-    <View>
+    <View style={styles.back}>
       <Var navigation={navigation} />
       <View style={styles.container}>
         <Text style={styles.text}>Create new Todo</Text>
@@ -36,7 +36,7 @@ const CraeteList = ({ navigation }) => {
             placeholder={"Title Of ToDo max(20)"}
             value={title}
             onChangeText={(title) => setTitle(title)}
-            maxLength={20}
+            maxLength={10}
           />
           <View>
             {shouldShowTitle ? (
@@ -52,11 +52,11 @@ const CraeteList = ({ navigation }) => {
           />
         </KeyboardAvoidingView>
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
             if (!checkTitle()) setShouldShowTitle(true);
             if (checkTitle()) {
               setIsLoading(true);
-              uploadTask(title, description);
+              await uploadTask(title, description);
               navigation.goBack();
             }
           }}
@@ -74,6 +74,11 @@ const styles = StyleSheet.create({
     marginTop: 65,
     alignItems: "center",
     justifyContent: "center",
+  },
+  back: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#AADEFF",
   },
   req: {
     color: "red",

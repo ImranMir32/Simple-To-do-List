@@ -84,7 +84,7 @@ export function Data({ children }) {
           Userid: user.id,
         },
       });
-      setTimeout(() => setIsLoading(false), 1000);
+      setTimeout(() => setIsLoading(false), 500);
       const currentTaskList = response.data;
       console.log(response.data);
 
@@ -217,7 +217,6 @@ export function Data({ children }) {
         setTitle,
         description,
         setDescription,
-        // handleAddTask,
         isChecked,
         clearData,
         updateTheTask,
