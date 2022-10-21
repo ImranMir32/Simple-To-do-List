@@ -5,19 +5,29 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  Keyboard,
+  Alert,
 } from "react-native";
-import { useContext } from "react";
-import DataProvider from "../DataProvider";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setUserName,
+  logIn,
+  setShouldShowUser,
+} from "../Redux/Slice/globalSlice";
+
+const checkUser = (userName) => {
+  Keyboard.dismiss();
+  if (userName === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 const Home = ({ navigation }) => {
-  const {
-    setUserName,
-    checkUser,
-    shouldShowUser,
-    setShouldShowUser,
-    userName,
-    logIn,
-    setIsLoading,
-  } = useContext(DataProvider);
+  const { userName, shouldShowUser } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <Text style={styles.text_}>Enter a User-Name</Text>
@@ -28,7 +38,7 @@ const Home = ({ navigation }) => {
           style={styles.input}
           placeholder={"Enter your userName max(5)"}
           value={userName}
-          onChangeText={(userName) => setUserName(userName)}
+          onChangeText={(userName) => dispatch(setUserName(userName))}
           maxLength={5}
         />
         <View>
@@ -38,12 +48,13 @@ const Home = ({ navigation }) => {
         </View>
       </KeyboardAvoidingView>
       <TouchableOpacity
-        onPress={async () => {
-          if (!checkUser()) setShouldShowUser(true);
-          if (checkUser()) {
-            await logIn();
-            setIsLoading(true);
-            navigation.navigate("Todo-list");
+        onPress={() => {
+          if (!checkUser(userName)) {
+            dispatch(setShouldShowUser(true));
+          }
+          if (checkUser(userName)) {
+            dispatch(logIn(userName));
+            // navigation.navigate("Todo-list");
           }
         }}
         style={styles.button}
@@ -57,7 +68,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#AADEFF",
+    backgroundColor: "#83D2DF",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

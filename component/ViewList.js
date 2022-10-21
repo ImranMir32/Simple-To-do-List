@@ -7,7 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import DataProvider from "../DataProvider";
+//import DataProvider from "../DataProvider";
 import { useContext } from "react";
 
 const ViewList = ({ navigation }) => {

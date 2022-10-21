@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import DataProvider from "../DataProvider";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import Var from "./Var";
 import ViewList from "./ViewList";
 
 export default Todo = ({ navigation }) => {
-  const { clear, fetchAllTodo } = useContext(DataProvider);
+  //const { clear, fetchAllTodo } = useContext(DataProvider);
 
   useEffect(() => {
     fetchAllTodo();

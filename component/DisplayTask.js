@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import DataProvider from "../DataProvider";
+//import DataProvider from "../DataProvider";
 import { useContext } from "react";
 import Var from "./Var";
 import Confirm from "./Confirm";

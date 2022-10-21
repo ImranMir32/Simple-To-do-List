@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import DataProvider from "../DataProvider";
+//import DataProvider from "../DataProvider";
 import { useContext } from "react";
 
 const Var = ({ navigation }) => {
