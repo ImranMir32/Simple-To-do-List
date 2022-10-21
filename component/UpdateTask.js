@@ -57,7 +57,8 @@ export default UpdateTask = ({ navigation, route }) => {
           onPress={() => {
             if (!checkTitle()) setShouldShowTitle(true);
             if (checkTitle()) {
-              updateTheTask(id), navigation.goBack();
+              updateTheTask(id);
+              navigation.goBack();
             }
           }}
           style={styles.button}
