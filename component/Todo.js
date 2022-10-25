@@ -1,13 +1,19 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { useEffect } from "react";
 import Var from "./Var";
 import ViewList from "./ViewList";
 
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllTodo, clear } from "../Redux/Slice/globalSlice";
+
 export default Todo = ({ navigation }) => {
-  //const { clear, fetchAllTodo } = useContext(DataProvider);
+  const { user } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchAllTodo();
+    // console.log("id-->");
+    // console.log(user.id);
+    dispatch(fetchAllTodo(user.id));
   }, []);
 
   return (
@@ -21,7 +27,7 @@ export default Todo = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               navigation.push("Craete-List");
-              clear();
+              dispatch(clear());
             }}
             style={styles.button}
           >
@@ -29,7 +35,6 @@ export default Todo = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-
       <ViewList navigation={navigation} />
     </View>
   );

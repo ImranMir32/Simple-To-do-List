@@ -5,29 +5,38 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
-//import DataProvider from "../DataProvider";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setTitle,
+  setDescription,
+  setShouldShowTitle,
+  updateTheTask,
+  clear,
+} from "../Redux/Slice/globalSlice";
 import Var from "./Var";
 
-export default UpdateTask = ({ navigation, route }) => {
-  const {
-    taskList,
-    title,
-    description,
-    setTitle,
-    setDescription,
-    checkTitle,
-    updateTheTask,
-    shouldShowTitle,
-    setShouldShowTitle,
-    setIsLoading,
-  } = useContext(DataProvider);
+const checkTitle = (title) => {
+  Keyboard.dismiss();
+  if (title === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
 
-  const { id } = route.params;
+export default UpdateTask = ({ navigation, route }) => {
+  const { user, title, description, shouldShowTitle } = useSelector(
+    (state) => state.global
+  );
+  const dispatch = useDispatch();
+
+  const { task } = route.params;
   useEffect(() => {
-    setTitle(taskList[id].title);
-    setDescription(taskList[id].description);
+    dispatch(setTitle(task.title));
+    dispatch(setDescription(task.description));
   }, []);
   return (
     <View style={styles.back}>
@@ -41,7 +50,7 @@ export default UpdateTask = ({ navigation, route }) => {
           <TextInput
             style={styles.input}
             value={title}
-            onChangeText={(title) => setTitle(title)}
+            onChangeText={(title) => dispatch(setTitle(title))}
             maxLength={10}
           ></TextInput>
           {shouldShowTitle ? (
@@ -51,15 +60,25 @@ export default UpdateTask = ({ navigation, route }) => {
           <TextInput
             style={styles.input}
             value={description}
-            onChangeText={(description) => setDescription(description)}
+            onChangeText={(description) =>
+              dispatch(setDescription(description))
+            }
           ></TextInput>
         </KeyboardAvoidingView>
         <TouchableOpacity
           onPress={() => {
-            if (!checkTitle()) setShouldShowTitle(true);
-            if (checkTitle()) {
-              updateTheTask(id, title, description);
-              setIsLoading(true);
+            if (!checkTitle(title)) {
+              dispatch(setShouldShowTitle(true));
+            }
+            if (checkTitle(title)) {
+              const info = {
+                title: title,
+                description: description,
+                id: task.id,
+                ID: user.id,
+              };
+              dispatch(updateTheTask(info));
+              dispatch(clear());
               navigation.goBack();
             }
           }}

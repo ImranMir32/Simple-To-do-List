@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Text,
   Keyboard,
-  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -48,13 +47,13 @@ const Home = ({ navigation }) => {
         </View>
       </KeyboardAvoidingView>
       <TouchableOpacity
-        onPress={() => {
+        onPress={async () => {
           if (!checkUser(userName)) {
             dispatch(setShouldShowUser(true));
           }
           if (checkUser(userName)) {
-            dispatch(logIn(userName));
-            // navigation.navigate("Todo-list");
+            await dispatch(logIn(userName));
+            navigation.navigate("Todo-list");
           }
         }}
         style={styles.button}

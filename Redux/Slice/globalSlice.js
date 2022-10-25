@@ -1,10 +1,8 @@
-import { Keyboard } from "react-native";
+import { Alert, Keyboard } from "react-native";
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const BASE_URL = "https://django-rest-simpletodo.herokuapp.com/api";
-
-// const { createSlice } = require("@reduxjs/toolkit");
 
 //login
 export const logIn = createAsyncThunk("global/logIn", async (userName) => {
@@ -21,32 +19,16 @@ export const logIn = createAsyncThunk("global/logIn", async (userName) => {
   return response.data;
 });
 
-//uploadtask
-export const uploadTask = createAsyncThunk("global/uploadTask", async () => {
-  Keyboard.dismiss();
-
-  const apiSubDirectory = "tasks";
-  const url = `${BASE_URL}/${apiSubDirectory}/`;
-  const response = await axios({
-    method: "POST",
-    url,
-    headers: {
-      userid: id,
-    },
-    data: {
-      title: title,
-      description: description,
-    },
-  });
-
-  fetchAllTodo(id);
-  return response;
-  // (state.title=""),
-  // (state.description=""),
-  // (state.setShouldShowTitle=false),
-
-  // return response;
-});
+//create-Todo
+const createTodo = (task) => {
+  return {
+    title: task.title,
+    description: task.description,
+    status: task.is_completed,
+    id: task.id,
+    date: task.created_at.slice(0, 10),
+  };
+};
 
 //fetchAllTodo
 export const fetchAllTodo = createAsyncThunk(
@@ -62,6 +44,7 @@ export const fetchAllTodo = createAsyncThunk(
       },
     });
 
+    // Alert.alert("aikhan a");
     const currentTaskList = response.data;
     currentTaskList.map((task) => {
       return createTodo(task);
@@ -70,74 +53,84 @@ export const fetchAllTodo = createAsyncThunk(
   }
 );
 
-const createTodo = (task) => {
-  return {
-    title: task.title,
-    description: task.description,
-    status: task.is_completed,
-    id: task.id,
-    date: task.created_at.slice(0, 10),
-  };
-};
+//uploadtask
+export const uploadTask = createAsyncThunk("global/uploadTask", async (obj) => {
+  Keyboard.dismiss();
+
+  const apiSubDirectory = "tasks";
+  const url = `${BASE_URL}/${apiSubDirectory}/`;
+  const response = await axios({
+    method: "POST",
+    url,
+    headers: {
+      userid: obj.Id,
+    },
+    data: {
+      title: obj.title,
+      description: obj.description,
+    },
+  });
+
+  return response.data;
+});
 
 //isChecked
-export const isChecked = createAsyncThunk(
-  "global/isChecked",
-  async (id, state) => {
-    const apiSubDirectory = "tasks";
-    const url = `${BASE_URL}/${apiSubDirectory}/${id}/`;
-    await axios({
-      method: "PATCH",
-      url,
-      headers: {
-        Userid: id,
-      },
-      data: {
-        is_completed: !state,
-      },
-    });
-    return fetchAllTodo(id);
-  }
-);
+export const isChecked = createAsyncThunk("global/isChecked", async (info) => {
+  const apiSubDirectory = "tasks";
+  const url = `${BASE_URL}/${apiSubDirectory}/${info.id}/`;
+  const response = await axios({
+    method: "PATCH",
+    url,
+    headers: {
+      Userid: info.ID,
+    },
+    data: {
+      is_completed: !info.status,
+    },
+  });
+
+  return response.data;
+});
 
 //updateTheTask
 export const updateTheTask = createAsyncThunk(
   "global/updateTheTask",
-  async ({ id, title, description }) => {
+  async (info) => {
     Keyboard.dismiss();
+
     const apiSubDirectory = "tasks";
-    const url = `${BASE_URL}/${apiSubDirectory}/${taskList[id].id}/`;
-    await axios({
+    const url = `${BASE_URL}/${apiSubDirectory}/${info.id}/`;
+    const response = await axios({
       method: "PATCH",
       url,
       headers: {
-        Userid: id,
+        Userid: info.ID,
       },
       data: {
-        title: title,
-        description: description,
+        title: info.title,
+        description: info.description,
       },
     });
-    return fetchAllTodo(id);
+
+    return response.data;
   }
 );
 
 //deleteTask
 export const deleteTask = createAsyncThunk(
   "global/deleteTask",
-  async (index, id) => {
+  async (info) => {
     Keyboard.dismiss();
     const apiSubDirectory = "tasks";
-    const url = `${BASE_URL}/${apiSubDirectory}/${taskList[index].id}/`;
+    const url = `${BASE_URL}/${apiSubDirectory}/${info.id}/`;
     await axios({
       method: "DELETE",
       url,
       headers: {
-        Userid: id,
+        Userid: info.ID,
       },
     });
-
-    return fetchAllTodo(id);
+    return info.id;
   }
 );
 
@@ -158,40 +151,36 @@ export const globalSlice = createSlice({
   //reducer
   reducers: {
     setUserName: (state, action) => {
+      //state,
       state.userName = action.payload;
-      console.log(state.userName);
+      //console.log(state.userName);
     },
     setShouldShowUser: (state, action) => {
       state.shouldShowUser = action.payload;
     },
+    setTitle: (state, action) => {
+      state.title = action.payload;
+    },
+    setDescription: (state, action) => {
+      state.description = action.payload;
+    },
+    setShouldShowTitle: (state, action) => {
+      state.shouldShowTitle = action.payload;
+    },
 
-    // checkTitle: (state) => {
-    //   Keyboard.dismiss();
-    //   if (state.title === "") {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // },
     clearData: (state) => {
-      (state.userName = ""),
-        (state.title = ""),
-        (state.description = ""),
-        (state.shouldShowUser = false),
-        (state.shouldShowTitle = false);
+      state.userName = "";
+      state.title = "";
+      state.description = "";
+      state.shouldShowUser = false;
+      state.shouldShowTitle = false;
+      state.user = {};
     },
     clear: (state) => {
-      (state.title = ""),
-        (state.description = ""),
-        (state.shouldShowTitle = false);
+      state.title = "";
+      state.description = "";
+      state.shouldShowTitle = false;
     },
-    // checkDescription: (state, action) => {
-    //   if (state.taskList[action.payload]?.state.description === "") {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // },
   },
 
   //API
@@ -216,8 +205,9 @@ export const globalSlice = createSlice({
     builder.addCase(uploadTask.fulfilled, (state, action) => {
       state.title = "";
       state.description = "";
-      state.setShouldShowTitle = false;
+      state.shouldShowTitle = false;
       state.isLoading = false;
+      state.taskList.push(action.payload);
     });
     builder.addCase(uploadTask.rejected, (state, action) => {
       state.isLoading = false;
@@ -242,7 +232,10 @@ export const globalSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(isChecked.fulfilled, (state, action) => {
-      state.taskList = action.payload;
+      const task = state.taskList.find((todo) => {
+        if (todo.id === action.payload.id) return todo;
+      });
+      task.is_completed = action.payload.is_completed;
       state.isLoading = false;
     });
     builder.addCase(isChecked.rejected, (state, action) => {
@@ -255,10 +248,15 @@ export const globalSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(updateTheTask.fulfilled, (state, action) => {
+      const task = state.taskList.find((todo) => {
+        if (todo.id === action.payload.id) return todo;
+      });
+      task.title = action.payload.title;
+      task.description = action.payload.description;
+
       state.title = "";
       state.description = "";
       state.shouldShowTitle = false;
-      state.taskList = action.payload;
       state.isLoading = false;
     });
     builder.addCase(updateTheTask.rejected, (state, action) => {
@@ -266,12 +264,14 @@ export const globalSlice = createSlice({
       console.log(action.payload);
     });
 
-    //
+    //delete
     builder.addCase(deleteTask.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(deleteTask.fulfilled, (state, action) => {
-      state.taskList = action.payload;
+      state.taskList = state.taskList.filter(
+        (task) => task.id !== action.payload
+      );
       state.isLoading = false;
     });
     builder.addCase(deleteTask.rejected, (state, action) => {
@@ -288,6 +288,9 @@ export const {
   checkDescription,
   setUserName,
   setShouldShowUser,
+  setTitle,
+  setDescription,
+  setShouldShowTitle,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

@@ -1,11 +1,19 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-//import DataProvider from "../DataProvider";
-import { useContext } from "react";
 import Var from "./Var";
-import Confirm from "./Confirm";
+import { useDispatch, useSelector } from "react-redux";
+
+const checkDescription = (description) => {
+  if (description === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
 
 export default DisplayTask = ({ navigation, route }) => {
-  const { taskList, checkDescription } = useContext(DataProvider);
+  const { taskList } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
+
   const { id } = route.params;
   return (
     <View style={styles.containers}>
@@ -17,7 +25,7 @@ export default DisplayTask = ({ navigation, route }) => {
           <Text style={styles.text_}>{taskList[id]?.title}</Text>
         </View>
         <View style={styles.need}>
-          {checkDescription(id) ? (
+          {checkDescription(taskList[id]?.description) ? (
             <View>
               <Text style={styles.text}>Description:</Text>
               <Text style={styles.text_}>{taskList[id]?.description}</Text>
@@ -28,7 +36,7 @@ export default DisplayTask = ({ navigation, route }) => {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Confirm", { id: id });
+          navigation.navigate("Confirm", { id: taskList[id].id });
         }}
         style={styles.button}
       >

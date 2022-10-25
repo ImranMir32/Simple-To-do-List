@@ -7,12 +7,13 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-//import DataProvider from "../DataProvider";
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { isChecked } from "../Redux/Slice/globalSlice";
 
 const ViewList = ({ navigation }) => {
-  const { taskList, isChecked, isLoading } = useContext(DataProvider);
-  console.log(isLoading);
+  const { user, taskList, isLoading } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
+
   return (
     <>
       {isLoading ? (
@@ -38,26 +39,26 @@ const ViewList = ({ navigation }) => {
                       <View style={styles.itemLeft}>
                         <Text
                           style={
-                            task?.status === true
+                            task.is_completed === true
                               ? [styles.isitem]
                               : [styles.item]
                           }
                         >
-                          {task?.title}
+                          {task.title}
                         </Text>
                       </View>
                     </TouchableOpacity>
                     <View>
-                      <Text>{task.date}</Text>
+                      <Text>{task.created_at.slice(0, 10)}</Text>
                     </View>
 
                     <View style={styles.wrap}>
                       <TouchableOpacity
                         onPress={() => {
-                          navigation.navigate("UpdateTask", { id: index });
+                          navigation.navigate("UpdateTask", { task: task });
                         }}
                       >
-                        {task?.status === false ? (
+                        {task.is_completed === false ? (
                           <Image
                             style={styles.tinyLogo}
                             source={require("../Icons/edit.png")}
@@ -66,12 +67,17 @@ const ViewList = ({ navigation }) => {
                       </TouchableOpacity>
                       <TouchableOpacity
                         onPress={() => {
-                          isChecked(task?.id, task.status);
+                          const info = {
+                            id: task.id,
+                            status: task.is_completed,
+                            ID: user.id,
+                          };
+                          dispatch(isChecked(info));
                         }}
                       >
                         <View
                           style={
-                            task?.status === true
+                            task.is_completed === true
                               ? [styles.iscircular]
                               : [styles.circular]
                           }

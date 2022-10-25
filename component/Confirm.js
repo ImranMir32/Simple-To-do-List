@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-//import DataProvider from "../DataProvider";
-import { useContext } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTask } from "../Redux/Slice/globalSlice";
 
 export default Confirm = ({ navigation, route }) => {
-  const { deleteTask, setIsLoading } = useContext(DataProvider);
+  const { user } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
   const { id } = route.params;
   return (
     <View style={styles.back}>
@@ -19,8 +21,11 @@ export default Confirm = ({ navigation, route }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
-              await deleteTask(id);
-              setIsLoading(true);
+              const info = {
+                id: id,
+                ID: user.id,
+              };
+              await dispatch(deleteTask(info));
               navigation.navigate("Todo-list");
             }}
           >

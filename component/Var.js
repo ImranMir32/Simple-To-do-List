@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-//import DataProvider from "../DataProvider";
-import { useContext } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { clearData } from "../Redux/Slice/globalSlice";
 const Var = ({ navigation }) => {
-  const { userName, clearData } = useContext(DataProvider);
+  const { userName } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <Text style={styles.todo}>ToDo</Text>
@@ -11,7 +12,7 @@ const Var = ({ navigation }) => {
         <Text style={styles.userName}>Mr.{userName}</Text>
         <TouchableOpacity
           onPress={() => {
-            clearData();
+            dispatch(clearData());
             navigation.navigate("Home");
           }}
           style={styles.button}

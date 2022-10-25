@@ -5,23 +5,35 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
+  Keyboard,
+  Alert,
 } from "react-native";
-//import DataProvider from "../DataProvider";
-import { useContext } from "react";
 import Var from "./Var";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  setShouldShowTitle,
+  setTitle,
+  setDescription,
+  uploadTask,
+} from "../Redux/Slice/globalSlice";
+
+const checkTitle = (title) => {
+  Keyboard.dismiss();
+  if (title === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 const CraeteList = ({ navigation }) => {
-  const {
-    title,
-    description,
-    setTitle,
-    setDescription,
-    checkTitle,
-    shouldShowTitle,
-    setShouldShowTitle,
-    uploadTask,
-    setIsLoading,
-  } = useContext(DataProvider);
+  const { user, title, shouldShowTitle, description } = useSelector(
+    (state) => state.global
+  );
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.back}>
       <Var navigation={navigation} />
@@ -33,9 +45,9 @@ const CraeteList = ({ navigation }) => {
           <Text style={styles.text_}>Title:</Text>
           <TextInput
             style={styles.input}
-            placeholder={"Title Of ToDo max(20)"}
+            placeholder={"Title Of ToDo max(10)"}
             value={title}
-            onChangeText={(title) => setTitle(title)}
+            onChangeText={(title) => dispatch(setTitle(title))}
             maxLength={10}
           />
           <View>
@@ -48,15 +60,24 @@ const CraeteList = ({ navigation }) => {
             style={styles.input}
             placeholder={"Description Of ToDo"}
             value={description}
-            onChangeText={(description) => setDescription(description)}
+            onChangeText={(description) =>
+              dispatch(setDescription(description))
+            }
           />
         </KeyboardAvoidingView>
         <TouchableOpacity
           onPress={async () => {
-            if (!checkTitle()) setShouldShowTitle(true);
-            if (checkTitle()) {
-              setIsLoading(true);
-              await uploadTask(title, description);
+            if (!checkTitle(title)) {
+              dispatch(setShouldShowTitle(true));
+            }
+
+            if (checkTitle(title)) {
+              const obj = {
+                title: title,
+                description: description,
+                Id: user.id,
+              };
+              await dispatch(uploadTask(obj));
               navigation.goBack();
             }
           }}
